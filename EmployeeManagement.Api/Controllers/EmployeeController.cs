@@ -1,10 +1,5 @@
-using System.Formats.Asn1;
-using EmployeeManagement.Application.Interfaces;
+using EmployeeManagement.Application.Interfaces.Employee;
 using EmployeeManagement.Application.Models;
-using EmployeeManagement.Domain.Entities;
-using EmployeeManagement.Infrastructure.Configuration;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Api.Controllers;
 

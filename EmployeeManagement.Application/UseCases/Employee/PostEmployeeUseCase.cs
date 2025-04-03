@@ -1,9 +1,8 @@
-using EmployeeManagement.Application.Interfaces;
+using EmployeeManagement.Application.Interfaces.Employee;
 using EmployeeManagement.Application.Models;
-using EmployeeManagement.Domain.Entities;
 using EmployeeManagement.Infrastructure.Configuration;
 
-namespace EmployeeManagement.Application.UseCases;
+namespace EmployeeManagement.Application.UseCases.Employee;
 
 public class PostEmployeeUseCase(AppDbContext context) : IPostEmployee
 {
@@ -14,7 +13,7 @@ public class PostEmployeeUseCase(AppDbContext context) : IPostEmployee
         if (department == null)
             return false;
         
-        var newEmployee = new Employee(request.FirstName, request.LastName, request.DepartmentId, request.Phone, request.Address);
+        var newEmployee = new Domain.Entities.Employee(request.FirstName, request.LastName, request.DepartmentId, request.Phone, request.Address);
 
         await context.Employess.AddAsync(newEmployee);
         await context.SaveChangesAsync();

@@ -1,6 +1,6 @@
 using EmployeeManagement.Application.Models;
 
-namespace EmployeeManagement.Application.Interfaces;
+namespace EmployeeManagement.Application.Interfaces.Employee;
 
 public interface IPostEmployee
 {

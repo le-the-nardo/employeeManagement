@@ -1,6 +1,6 @@
 using EmployeeManagement.Application.DTOs;
 
-namespace EmployeeManagement.Application.Interfaces;
+namespace EmployeeManagement.Application.Interfaces.Employee;
 
 public interface IGetEmployeeById
 {

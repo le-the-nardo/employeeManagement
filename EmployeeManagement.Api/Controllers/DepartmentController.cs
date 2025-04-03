@@ -1,6 +1,8 @@
+using EmployeeManagement.Application.Interfaces.Department;
 using EmployeeManagement.Application.Models;
 using EmployeeManagement.Domain.Entities;
 using EmployeeManagement.Infrastructure.Configuration;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Api.Controllers;
@@ -11,20 +13,20 @@ public static class DepartmentController
     {
         var departmentRoutes = app.MapGroup("department");
 
-        departmentRoutes.MapGet("all", async (AppDbContext context) =>
+        departmentRoutes.MapGet("all", async (IGetDepartments useCase) =>
         {
-            var a = 10;
-            var departments = await context.Departments.ToListAsync();
-            return departments;
+            var departments = await useCase.GetDepartments();
+
+            return departments != null ? Results.Ok(departments) : Results.NotFound("There is no departments registered.");
         });
 
-        departmentRoutes.MapPost("", async (AddDepartmentRequest request, AppDbContext context) =>
+        departmentRoutes.MapPost("", async (AddDepartmentRequest request, IPostDepartment useCase) =>
         {
-            var newDepartment = new Department(request.DepartmentName);
+            var departmentCreated = await useCase.PostDepartment(request);
 
-            await context.Departments.AddAsync(newDepartment);
-            await context.SaveChangesAsync();
-
+            return departmentCreated
+                ? Results.Ok("Department created.")
+                : Results.BadRequest("Error to create department");
         });
     }
 }

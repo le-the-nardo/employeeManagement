@@ -1,9 +1,9 @@
 using EmployeeManagement.Application.DTOs;
-using EmployeeManagement.Application.Interfaces;
+using EmployeeManagement.Application.Interfaces.Employee;
 using EmployeeManagement.Infrastructure.Configuration;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeManagement.Application.UseCases;
+namespace EmployeeManagement.Application.UseCases.Employee;
 
 public class GetEmployeesUseCase(AppDbContext context) : IGetEmployees
 {

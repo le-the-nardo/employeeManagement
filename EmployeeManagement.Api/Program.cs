@@ -1,6 +1,8 @@
 using EmployeeManagement.Api.Controllers;
-using EmployeeManagement.Application.Interfaces;
-using EmployeeManagement.Application.UseCases;
+using EmployeeManagement.Application.Interfaces.Department;
+using EmployeeManagement.Application.Interfaces.Employee;
+using EmployeeManagement.Application.UseCases.Department;
+using EmployeeManagement.Application.UseCases.Employee;
 using EmployeeManagement.Infrastructure.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,11 +14,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>();
 
 // UseCases
+// --- Employee
 builder.Services.AddScoped<IGetEmployees, GetEmployeesUseCase>();
 builder.Services.AddScoped<IGetEmployeeById, GetEmployeeByIdUseCase>();
 builder.Services.AddScoped<IPostEmployee, PostEmployeeUseCase>();
 builder.Services.AddScoped<IPutEmployee, PutEmployeeUseCase>();
 builder.Services.AddScoped<IDeleteEmployee, DeleteEmployeeUseCase>();
+// --- Department
+builder.Services.AddScoped<IPostDepartment, PostDepartmentUseCase>();
+builder.Services.AddScoped<IGetDepartments, GetDepartmentsUseCase>();
 
 var app = builder.Build();
 
