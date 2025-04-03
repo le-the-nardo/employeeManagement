@@ -1,0 +1,34 @@
+# Build artifacts
+bin/
+obj/
+
+# Rider / JetBrains IDE
+.idea/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# SQLite database files
+Banco.sqlite
+Banco.sqlite-shm
+Banco.sqlite-wal
+
+# Debug output
+Debug/
+Release/
+
+# Dotnet specific
+project.lock.json
+*.pdb
+*.dll
+*.exe
+*.app
+*.db
+
+# User-specific files
+*.log
+*.tmp
