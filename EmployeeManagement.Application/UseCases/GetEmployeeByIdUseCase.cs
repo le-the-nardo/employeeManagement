@@ -7,21 +7,21 @@ namespace EmployeeManagement.Application.UseCases;
 
 public class GetEmployeeByIdUseCase(AppDbContext context) : IGetEmployeeById
 {
-    public async Task<EmployeeDto> GetEmployeeById(Guid id)
+    public async Task<EmployeeDto?> GetEmployeeById(Guid id)
     {
-        var employees = await context.Employess.ToListAsync();
-        var departments = await context.Departments.ToListAsync();
-        var employee = employees.FirstOrDefault(e => e.Id == id);
-        
-        var result =  new EmployeeDto
-        {
-            Id = employee.Id,
-            Name = employee.FirstName + " " + employee.LastName,
-            HireDate = employee.HireDate,
-            Phone = employee.Phone,
-            Address = employee.Address,
-            DepartmentName = departments.Find(d => d.Id == employee.DepartmentId)!.DepartmentName
-        };
-        return result;
+        var employee = await context.Employess
+            .Where(e => e.Id == id)
+            .Join(context.Departments, e => e.DepartmentId, d => d.Id,
+                (e,d) => new EmployeeDto
+                {
+                    Id = e.Id,
+                    Name = e.FirstName + " " + e.LastName,
+                    HireDate = e.HireDate,
+                    Phone = e.Phone,
+                    Address = e.Address,
+                    DepartmentName = d.DepartmentName
+                }).FirstOrDefaultAsync();
+
+        return employee;
     }
 }

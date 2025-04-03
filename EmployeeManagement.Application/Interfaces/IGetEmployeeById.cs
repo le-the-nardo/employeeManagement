@@ -4,5 +4,5 @@ namespace EmployeeManagement.Application.Interfaces;
 
 public interface IGetEmployeeById
 {
-    public Task<EmployeeDto> GetEmployeeById(Guid id);
+    public Task<EmployeeDto?> GetEmployeeById(Guid id);
 }

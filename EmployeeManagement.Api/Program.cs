@@ -11,7 +11,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>();
 
+// UseCases
 builder.Services.AddScoped<IGetEmployees, GetEmployeesUseCase>();
+builder.Services.AddScoped<IGetEmployeeById, GetEmployeeByIdUseCase>();
+builder.Services.AddScoped<IPostEmployee, PostEmployeeUseCase>();
+builder.Services.AddScoped<IPutEmployee, PutEmployeeUseCase>();
+builder.Services.AddScoped<IDeleteEmployee, DeleteEmployeeUseCase>();
 
 var app = builder.Build();
 

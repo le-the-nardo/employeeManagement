@@ -3,6 +3,7 @@ using EmployeeManagement.Application.Interfaces;
 using EmployeeManagement.Application.Models;
 using EmployeeManagement.Domain.Entities;
 using EmployeeManagement.Infrastructure.Configuration;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Api.Controllers;
@@ -13,50 +14,39 @@ public static class EmployeeController
     {
         var employeeRoutes = app.MapGroup("employee");
 
-        employeeRoutes.MapPost("", async (AddEmployeeRequest request, AppDbContext context) =>
+        employeeRoutes.MapPost("", async (AddEmployeeRequest request, IPostEmployee useCase) =>
         {
-            var newEmployee = new Employee(request.FirstName, request.LastName, request.DepartmentId, request.Phone, request.Address);
+            var employeePersisted = await useCase.PostEmployee(request);
 
-            await context.Employess.AddAsync(newEmployee);
-            await context.SaveChangesAsync();
+            return employeePersisted ? Results.Ok("Employee created") : Results.BadRequest("Error to create employee.");
         });
 
         employeeRoutes.MapGet("all", async (IGetEmployees useCase) =>
         {
             var employees = await useCase.GetEmployees();
-            return employees;
-        });
-
-        employeeRoutes.MapGet("{id:guid}", (Guid id, AppDbContext context) =>
-        {
-            var employee = context.Employess.SingleOrDefaultAsync(e => e.Id == id);
-            return employee;
-        });
-
-        employeeRoutes.MapPut("{id:guid}", async (Guid id, UpdateEmployeeRequest request, AppDbContext context) =>
-        {
-            var employee = await context.Employess.SingleOrDefaultAsync(e => e.Id == id);
-
-            if (employee == null)
-                return Results.NotFound();
             
-            employee.UpdateEmployee(request.FirstName, request.LastName, request.DepartmentId, request.Phone, request.Address);
-
-            await context.SaveChangesAsync();
-            return Results.Ok(employee);
+            return employees != null ? Results.Ok(employees) : Results.NotFound("No employees found.");
         });
 
-        employeeRoutes.MapDelete("{id:guid}", async (Guid id, AppDbContext context) =>
+        employeeRoutes.MapGet("{id:guid}", async (Guid id, IGetEmployeeById useCase) =>
         {
-            var employee = await context.Employess.SingleOrDefaultAsync(e => e.Id == id);
+            var employee = await useCase.GetEmployeeById(id);
 
-            if (employee == null)
-                return Results.NotFound();
+            return employee != null ? Results.Ok(employee) : Results.NotFound("Employee not found.");
+        });
 
-            context.Employess.Remove(employee);
-            await context.SaveChangesAsync();
+        employeeRoutes.MapPut("{id:guid}", async (Guid id, UpdateEmployeeRequest request, IPutEmployee useCase) =>
+        {
+            var employeeUpdated = await useCase.UpdateEmployee(id, request);
+            
+            return employeeUpdated ? Results.Ok("Employee updated successfully.") : Results.BadRequest("Error to update employee.");
+        });
 
-            return Results.Ok($"Employee Id '{id}' removed successfully");
+        employeeRoutes.MapDelete("{id:guid}", async (Guid id, IDeleteEmployee useCase) =>
+        {
+            var employeeDeleted = await useCase.DeleteEmployee(id);
+
+            return employeeDeleted ? Results.Ok($"Employee Id '{id}' removed successfully") : Results.NotFound($"Employee Id '{id}' not found.");
         });
     }
 }

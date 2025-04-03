@@ -4,5 +4,5 @@ namespace EmployeeManagement.Application.Interfaces;
 
 public interface IGetEmployees
 {
-    public Task<List<EmployeeDto>> GetEmployees();
+    public Task<List<EmployeeDto>?> GetEmployees();
 }
