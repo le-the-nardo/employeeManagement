@@ -3,18 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Infrastructure.Configuration;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    
     public DbSet<Employee> Employess { get; set; }
     public DbSet<Department> Departments { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlite("Data Source=Banco.sqlite");
-        base.OnConfiguring(optionsBuilder);
-    }
-    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
