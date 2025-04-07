@@ -14,20 +14,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UnityOfWork\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Class1.cs" />
     <Compile Remove="Persistence\**" />
+    <Compile Remove="UnityOfWork\**" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="Persistence\**" />
+    <EmbeddedResource Remove="UnityOfWork\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Persistence\**" />
+    <None Remove="UnityOfWork\**" />
   </ItemGroup>
 
   <PropertyGroup>

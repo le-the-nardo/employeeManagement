@@ -12,20 +12,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Class1.cs" />
     <Compile Remove="Queries\**" />
+    <Compile Remove="Commands\**" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="Queries\**" />
+    <EmbeddedResource Remove="Commands\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Queries\**" />
+    <None Remove="Commands\**" />
   </ItemGroup>
 
   <PropertyGroup>
