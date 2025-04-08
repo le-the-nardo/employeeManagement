@@ -19,7 +19,8 @@ public class GetEmployeeByIdUseCase(AppDbContext context) : IGetEmployeeById
                     HireDate = e.HireDate,
                     Phone = e.Phone,
                     Address = e.Address,
-                    DepartmentName = d.DepartmentName
+                    DepartmentName = d.DepartmentName,
+                    DepartmentId = e.DepartmentId
                 }).FirstOrDefaultAsync();
 
         return employee;
