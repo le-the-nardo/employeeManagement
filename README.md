@@ -1,5 +1,4 @@
 # EmployeeManagement API
-# Employee Management System
 
 ## 📖 Introduction
 
@@ -12,7 +11,7 @@ The project is structured into multiple layers to ensure **separation of concern
 - **Domain** – Core business logic and entities.
 - **Application** – Use cases, and DTOs.
 - **Infrastructure** – Database access (EF Core), repositories, and external services.
-- **API** – API controllers and endpoints.
+- **API** – API controllers, middlewares and configurations.
 - **Tests** – Unit and integration tests using MSTest, FakeItEasy, AutoFixture, and FluentAssertions.
 
 ## 🛠️ Technologies Used
@@ -87,6 +86,10 @@ dotnet test
  ┗ 📜 .gitignore
 ```
 
+## 🔐 API Authentication
+
+- All HTTP requests include an **API Key** in the headers
+
 ## 🏛️ Design Patterns Implemented
 
 - **Repository Pattern** – Abstracts data access logic.
@@ -101,6 +104,11 @@ dotnet test
 - **Delete Employee:** `DELETE /employees/{id}`
 - **Add Department:** `POST /department`
 - **Get Departments:** `GET /department/all`
+
+## 🧑‍💻 Author
+
+- Developed with ❤️ and ☕ by **Leonardo Gomes**
+- 💼 Senior Software Engineer from Brazil 🇧🇷
 
 ## 📜 License
 
