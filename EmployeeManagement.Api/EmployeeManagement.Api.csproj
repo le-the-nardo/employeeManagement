@@ -22,19 +22,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Middlewares\**" />
+    <Compile Remove="Midlewares\Api.cs" />
+    <Compile Remove="Midlewares\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Remove="Middlewares\**" />
+    <EmbeddedResource Remove="Midlewares\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Middlewares\**" />
+    <Content Remove="Midlewares\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Middlewares\**" />
+    <None Remove="Midlewares\**" />
   </ItemGroup>
 
 </Project>
